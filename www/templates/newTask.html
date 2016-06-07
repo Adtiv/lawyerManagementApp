@@ -1,0 +1,20 @@
+<ion-view view-title="New Task">
+  <ion-content class="padding">
+    <label class="item item-input item-stacked-label">
+    <span class="input-label">Task Title:</span>
+    <input type="text" id="taskTitle">
+    </label>
+    <label class="item item-input item-stacked-label">
+    <span class="input-label">Due Date:</span>
+    <input type="text" id="dueDate">
+    </label>
+    <label class="item item-input item-stacked-label">
+    <span class="input-label">Description:</span>
+    <textarea  rows="8" cols="10" id="taskDescription">
+    </textarea>
+    </label>
+    <button class="button button-full button-positive" ng-click="addTask()">
+      Submit
+    </button>
+  </ion-content>
+</ion-view>

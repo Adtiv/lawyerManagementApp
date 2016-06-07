@@ -6,31 +6,25 @@ angular.module('starter.services', [])
   // Some fake testing data
   var chats = [{
     id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
+    name: 'Anthony Ditocco',
+    email: 'aditocco@ufl.edu',
+    phoneNumber: '9549183202'
   }, {
     id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
+    name: 'Jessi Ditocco',
+    email: 'jditocco@ufl.edu',
+    phoneNumber: '9545853938'
   }, {
     id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
+    name: 'Robyn Ditocco',
+    email: 'rditocco@ditoccolaw.com',
+    phoneNumber: '9546987688'
   }, {
     id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
+    name: 'Tony Ditocco',
+    email: 'tditocco@ditoccolaw.com',
+    phoneNumber: '9544222252'
   }];
-
   return {
     all: function() {
       return chats;
@@ -47,6 +41,36 @@ angular.module('starter.services', [])
       return null;
     }
   };
+})
+.factory('Tasks', function() {
+  // Might use a resource here that returns a JSON array
+
+  // Some fake testing data
+  
+  var tasks = [
+    { title: 'Discovery Response', timeLeft: 22, rule:'DiscoveryResponse'},
+    { title: 'Pleading Response', timeLeft: 14, rule:'PleadingResponse'},
+    { title: 'Motion Response', timeLeft: 1, rule:'MotionResponse'},
+    { title: 'Mediation Statement', timeLeft: 2, rule:'MediationStatement'},
+    { title: 'Discovery Response', timeLeft: 3, rule:'DiscoveryResponse'},
+    { title: 'Pleading Response', timeLeft: 12, rule:'PleadingResponse'},
+    { title: 'Motion Response', timeLeft: 4, rule:'MotionResponse'},
+    { title: 'Mediation Statement', timeLeft: 7, rule:'MediationStatement'}
+  ];
+  return {
+    all: function() {
+      return tasks;
+    },
+    remove: function(task) {
+      tasks.splice(tasks.indexOf(task), 1);
+    },
+    get: function(taskId) {
+      for (var i = 0; i < tasks.length; i++) {
+        if (tasks[i].id === parseInt(taskId)) {
+          return tasks[i];
+        }
+      }
+      return null;
+    }
+  };
 });
-
-

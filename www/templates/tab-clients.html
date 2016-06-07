@@ -1,15 +1,19 @@
 <ion-view view-title="Clients">
   <ion-nav-buttons side="left">
-      <button class="button button-clear" ng-click="doSomething()">
+      <a class="button button-clear" href="#/tab/settings">
         <i class ="icon ion-gear-b"></i>
-      </button>
+      </a>
   </ion-nav-buttons>
   <ion-content>
+  <label class="item item-input">
+    <i class="icon ion-search placeholder-icon"></i>
+    <input type="search" placeholder="Search" ng-model="searchName">
+  </label>
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
-        <img ng-src="{{chat.face}}">
         <h2>{{chat.name}}</h2>
-        <p>{{chat.lastText}}</p>
+        <p>{{chat.email}}</p>
+        <p>{{chat.phoneNumber}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
         <ion-option-button class="button-assertive" ng-click="remove(chat)">

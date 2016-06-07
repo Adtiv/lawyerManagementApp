@@ -2,3 +2,12 @@
 .item-select select {
   left: 0;
 }
+.makeRed .item-content{
+	background-color: red !important;
+}
+.makeYellow .item-content{
+	background-color: yellow !important;
+}
+.makeGreen .item-content{
+	background-color: green !important;
+}

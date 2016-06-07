@@ -1,16 +1,19 @@
 angular.module('starter.controllers', [])
 
-.controller('TasksCtrl', function($scope) {
+.controller('TasksCtrl', function($scope, $state, Tasks) {
+  $scope.tasks = Tasks.all();
+  /*
   $scope.tasks = [
-    { title: 'Discovery Response', timeLeft: '2 Days', rule:'DiscoveryResponse'},
-    { title: 'Pleading Response', timeLeft: '4 Days', rule:'PleadingResponse'},
-    { title: 'Motion Response', timeLeft: '10 Days', rule:'MotionResponse'},
-    { title: 'Mediation Statement', timeLeft: '15 Days', rule:'MediationStatement'},
-    { title: 'Discovery Response', timeLeft: '16 Days', rule:'DiscoveryResponse'},
-    { title: 'Pleading Response', timeLeft: '19 Days', rule:'PleadingResponse'},
-    { title: 'Motion Response', timeLeft: '21 Days', rule:'MotionResponse'},
-    { title: 'Mediation Statement', timeLeft: '23 Days', rule:'MediationStatement'}
+    { title: 'Discovery Response', timeLeft: '2', rule:'DiscoveryResponse'},
+    { title: 'Pleading Response', timeLeft: '4', rule:'PleadingResponse'},
+    { title: 'Motion Response', timeLeft: '10', rule:'MotionResponse'},
+    { title: 'Mediation Statement', timeLeft: '15', rule:'MediationStatement'},
+    { title: 'Discovery Response', timeLeft: '16', rule:'DiscoveryResponse'},
+    { title: 'Pleading Response', timeLeft: '19', rule:'PleadingResponse'},
+    { title: 'Motion Response', timeLeft: '21', rule:'MotionResponse'},
+    { title: 'Mediation Statement', timeLeft: '23', rule:'MediationStatement'}
   ];
+  */
   $scope.rules = "All Tasks";
   $scope.ruleSelect = "";
   $scope.filterRules = function(rules){
@@ -39,12 +42,36 @@ angular.module('starter.controllers', [])
       document.getElementById('filteredList').style.visibility="visible";   
     }
     else{
+      $scope.ruleSelect = "";
       document.getElementById('unfilteredList').style.visibility="visible"; 
       document.getElementById('unfilteredList').style.display="initial"; 
       document.getElementById('filteredList').style.visibility="hidden"; 
     }
   };
-
+  $scope.colorTasks = function(task){
+    var taskTime = task.timeLeft;
+    var time = parseInt(taskTime);
+    if(time<=2){
+      return "red";
+    }  
+    else if(time<=5){
+      return "yellow";
+    }
+    else{
+      return "green";
+    }  
+  }
+  $scope.addTask = function(){
+    var taskTitle = document.getElementById('taskTitle').value;
+    var dueDate = parseInt(document.getElementById('dueDate').value);
+    var taskDescription = document.getElementById('taskDescription').value;
+    $scope.tasks.push({title:taskTitle,timeLeft:dueDate,rule:'MediationStatement'});
+    $state.transitionTo('tab.tasks', $state.$current.params, {reload: true});
+    //$state.go('tab.tasks');
+  }
+  $scope.remove = function(task) {
+    Tasks.remove(task);
+  }
   // Create and load the Modal
   /*
   $ionicModal.fromTemplateUrl('new-task.html', function(modal) {
@@ -74,7 +101,9 @@ angular.module('starter.controllers', [])
   };
   */
 })
+.controller('NewTaskCtrl', function($scope) {
 
+})
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -88,6 +117,16 @@ angular.module('starter.controllers', [])
   $scope.remove = function(chat) {
     Chats.remove(chat);
   };
+  /*
+  $scope.searchName = chat.name
+  var expectFriendNames = function(chats, key) {
+    element.all(by.repeater(name + ' in chats').column(name + '.name')).then(function(arr) {
+      arr.forEach(function(wd, i) {
+        expect(wd.getText()).toMatch(chats[i]);
+      });
+    });
+  };
+  */
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {

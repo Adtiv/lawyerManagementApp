@@ -10,13 +10,13 @@
     <input type="search" placeholder="Search" ng-model="searchName">
   </label>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
-        <h2>{{chat.name}}</h2>
-        <p>{{chat.email}}</p>
-        <p>{{chat.phoneNumber}}</p>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="client in clients" type="item-text-wrap" href="#/tab/clients/{{client.id}}">
+        <h2 style="font-weight:bold">{{client.name}}</h2>
+        <p>{{client.email}}</p>
+        <p>{{client.phoneNumber}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
-        <ion-option-button class="button-assertive" ng-click="remove(chat)">
+        <ion-option-button class="button-assertive" ng-click="remove(client)">
           Delete
         </ion-option-button>
       </ion-item>

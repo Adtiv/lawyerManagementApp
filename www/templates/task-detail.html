@@ -1,0 +1,26 @@
+<ion-view view-title="Task Details ">
+  <ion-content class="padding">
+  <div class="list">
+    <label class="item item-input item-stacked-label">
+      <span class="input-label" style="font-weight:bold">Task:</span>
+      <textarea rows="3" cols="10">{{task.title}}</textarea>
+    </label>
+    <label class="item item-input item-stacked-label">
+      <span class="input-label" style="font-weight:bold">Description:</span>
+      <textarea rows="6" cols="10">{{task.description}}</textarea>
+    </label>
+    <label class="item item-input item-stacked-label">
+      <span class="input-label" style="font-weight:bold">Due Date:</span>
+      <span></span>
+    </label>
+    <label class="item item-input item-stacked-label">
+      <span class="input-label" style="font-weight:bold">Time Left:</span>
+      <span>{{task.timeLeft}}</span>
+    </label>
+    <label class="item item-input item-stacked-label">
+      <span class="input-label" style="font-weight:bold">Task Type:</span>
+      <span>{{task.rule}}</span>
+    </label>
+  </div>
+  </ion-content>
+</ion-view>

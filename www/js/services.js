@@ -1,10 +1,10 @@
 angular.module('starter.services', [])
 
-.factory('Chats', function() {
+.factory('Clients', function() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
-  var chats = [{
+  var clients = [{
     id: 0,
     name: 'Anthony Ditocco',
     email: 'aditocco@ufl.edu',
@@ -27,15 +27,15 @@ angular.module('starter.services', [])
   }];
   return {
     all: function() {
-      return chats;
+      return clients;
     },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
+    remove: function(client) {
+      clients.splice(clients.indexOf(client), 1);
     },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
+    get: function(clientId) {
+      for (var i = 0; i < clients.length; i++) {
+        if (clients[i].id === parseInt(clientId)) {
+          return clients[i];
         }
       }
       return null;
@@ -48,14 +48,14 @@ angular.module('starter.services', [])
   // Some fake testing data
   
   var tasks = [
-    { title: 'Discovery Response', timeLeft: 22, rule:'DiscoveryResponse'},
-    { title: 'Pleading Response', timeLeft: 14, rule:'PleadingResponse'},
-    { title: 'Motion Response', timeLeft: 1, rule:'MotionResponse'},
-    { title: 'Mediation Statement', timeLeft: 2, rule:'MediationStatement'},
-    { title: 'Discovery Response', timeLeft: 3, rule:'DiscoveryResponse'},
-    { title: 'Pleading Response', timeLeft: 12, rule:'PleadingResponse'},
-    { title: 'Motion Response', timeLeft: 4, rule:'MotionResponse'},
-    { title: 'Mediation Statement', timeLeft: 7, rule:'MediationStatement'}
+    { id: 0,title: 'Discovery Response', timeLeft: 22, rule:'DiscoveryResponse'},
+    { id: 1,title: 'Pleading Response', timeLeft: 14, rule:'PleadingResponse'},
+    { id: 2,title: 'Motion Response', timeLeft: 1, rule:'MotionResponse'},
+    { id: 3,title: 'Mediation Statement', timeLeft: 2, rule:'MediationStatement'},
+    { id: 4,title: 'Discovery Response', timeLeft: 3, rule:'DiscoveryResponse'},
+    { id: 5,title: 'Pleading Response', timeLeft: 12, rule:'PleadingResponse'},
+    { id: 6,title: 'Motion Response', timeLeft: 4, rule:'MotionResponse'},
+    { id: 7,title: 'Mediation Statement', timeLeft: 7, rule:'MediationStatement'}
   ];
   return {
     all: function() {

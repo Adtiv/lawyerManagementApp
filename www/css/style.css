@@ -11,3 +11,14 @@
 .makeGreen .item-content{
 	background-color: green !important;
 }
+.bar.bar-light{
+  background-color: rgba(220,220,220,.75) !important; /* or transparent, or background:none */
+}
+.tabs-custom > .tabs,
+.tabs.tabs-custom {
+  background-color: rgba(220,220,220,.75) !important; /* or transparent, or background:none */
+
+}
+.scroll-content {
+  overflow: visible !important;
+}

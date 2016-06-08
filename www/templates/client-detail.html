@@ -4,19 +4,25 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{chat.name}}">
+<ion-view view-title="{{client.name}}">
   <ion-content class="padding" style="text-align:center">
     <label class=" item-stacked-label">
       <span class="input-label">Email Address:</span>
-      <p>{{chat.email}}</p>
-    </label>
+      <p>{{client.email}}</p>
+    </label><br><hr>
     <label class=" item-stacked-label">
-      <span class="input-label" >Phone Number:</span>
-      <p>{{chat.phoneNumber}}</p>
-    </label>
-    <span class="input-label" >Case Progress:</span>
+      <span class="input-label">Phone Number:</span>
+      <p>{{client.phoneNumber}}</p>
+    </label><br><hr>
+    <label class = "item-stacked-label">
+      <span class="input-label">Documents:</span>
+    </label><br><hr>
+    <label class = "item-stacked-label">
+      <span class="input-label">Case Progress:</span>
+    </label><br>
     <ion-checkbox ng-model="isCheckedTask1">Case Task 1</ion-checkbox>
     <ion-checkbox ng-model="isCheckedTask2">Case Task 2</ion-checkbox>
     <ion-checkbox ng-model="isCheckedTask3">Case Task 3</ion-checkbox>
+    <br>
   </ion-content>
 </ion-view>

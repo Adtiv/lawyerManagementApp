@@ -1,19 +1,8 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ui.rCalendar'])
 
 .controller('TasksCtrl', function($scope, $state, Tasks) {
   $scope.tasks = Tasks.all();
-  /*
-  $scope.tasks = [
-    { title: 'Discovery Response', timeLeft: '2', rule:'DiscoveryResponse'},
-    { title: 'Pleading Response', timeLeft: '4', rule:'PleadingResponse'},
-    { title: 'Motion Response', timeLeft: '10', rule:'MotionResponse'},
-    { title: 'Mediation Statement', timeLeft: '15', rule:'MediationStatement'},
-    { title: 'Discovery Response', timeLeft: '16', rule:'DiscoveryResponse'},
-    { title: 'Pleading Response', timeLeft: '19', rule:'PleadingResponse'},
-    { title: 'Motion Response', timeLeft: '21', rule:'MotionResponse'},
-    { title: 'Mediation Statement', timeLeft: '23', rule:'MediationStatement'}
-  ];
-  */
+
   $scope.rules = "All Tasks";
   $scope.ruleSelect = "";
   $scope.filterRules = function(rules){
@@ -65,46 +54,20 @@ angular.module('starter.controllers', [])
     var taskTitle = document.getElementById('taskTitle').value;
     var dueDate = parseInt(document.getElementById('dueDate').value);
     var taskDescription = document.getElementById('taskDescription').value;
-    $scope.tasks.push({title:taskTitle,timeLeft:dueDate,rule:'MediationStatement'});
+    var size = $scope.tasks.length;
+    $scope.tasks.push({id:size,title:taskTitle,timeLeft:dueDate,rule:'MediationStatement'});
     $state.transitionTo('tab.tasks', $state.$current.params, {reload: true});
     //$state.go('tab.tasks');
   }
   $scope.remove = function(task) {
     Tasks.remove(task);
   }
-  // Create and load the Modal
-  /*
-  $ionicModal.fromTemplateUrl('new-task.html', function(modal) {
-    $scope.taskModal = modal;
-  }, {
-    scope: $scope,
-    animation: 'slide-in-up'
-  });
 
-  // Called when the form is submitted
-  $scope.createTask = function(task) {
-    $scope.tasks.push({
-      title: task.title
-    });
-    $scope.taskModal.hide();
-    task.title = "";
-  };
-
-  // Open our new task modal
-  $scope.newTask = function() {
-    $scope.taskModal.show();
-  };
-
-  // Close the new task modal
-  $scope.closeNewTask = function() {
-    $scope.taskModal.hide();
-  };
-  */
 })
 .controller('NewTaskCtrl', function($scope) {
 
 })
-.controller('ChatsCtrl', function($scope, Chats) {
+.controller('ClientsCtrl', function($scope, Clients) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -113,9 +76,9 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
+  $scope.clients = Clients.all();
+  $scope.remove = function(client) {
+    Clients.remove(client);
   };
   /*
   $scope.searchName = chat.name
@@ -128,13 +91,82 @@ angular.module('starter.controllers', [])
   };
   */
 })
-
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('TaskDetailCtrl', function($scope, $stateParams, Tasks) {
+  $scope.task = Tasks.get($stateParams.taskId);
 })
+.controller('ClientDetailCtrl', function($scope, $stateParams, Clients) {
+  $scope.client = Clients.get($stateParams.clientId);
+})
+.controller('AccountCtrl', function ($scope) {
+    'use strict';
+    $scope.calendar = {};
+    $scope.changeMode = function (mode) {
+        $scope.calendar.mode = mode;
+    };
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+    $scope.loadEvents = function () {
+        $scope.calendar.eventSource = createRandomEvents();
+    };
+
+    $scope.onEventSelected = function (event) {
+        console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
+    };
+
+    $scope.onViewTitleChanged = function (title) {
+        $scope.viewTitle = title;
+    };
+
+    $scope.today = function () {
+        $scope.calendar.currentDate = new Date();
+    };
+
+    $scope.isToday = function () {
+        var today = new Date(),
+            currentCalendarDate = new Date($scope.calendar.currentDate);
+
+        today.setHours(0, 0, 0, 0);
+        currentCalendarDate.setHours(0, 0, 0, 0);
+        return today.getTime() === currentCalendarDate.getTime();
+    };
+
+    $scope.onTimeSelected = function (selectedTime) {
+        console.log('Selected time: ' + selectedTime);
+    };
+
+    function createRandomEvents() {
+        var events = [];
+        for (var i = 0; i < 50; i += 1) {
+            var date = new Date();
+            var eventType = Math.floor(Math.random() * 2);
+            var startDay = Math.floor(Math.random() * 90) - 45;
+            var endDay = Math.floor(Math.random() * 2) + startDay;
+            var startTime;
+            var endTime;
+            if (eventType === 0) {
+                startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + startDay));
+                if (endDay === startDay) {
+                    endDay += 1;
+                }
+                endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + endDay));
+                events.push({
+                    title: 'All Day - ' + i,
+                    startTime: startTime,
+                    endTime: endTime,
+                    allDay: true
+                });
+            } else {
+                var startMinute = Math.floor(Math.random() * 24 * 60);
+                var endMinute = Math.floor(Math.random() * 180) + startMinute;
+                startTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + startDay, 0, date.getMinutes() + startMinute);
+                endTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + endDay, 0, date.getMinutes() + endMinute);
+                events.push({
+                    title: 'Event - ' + i,
+                    startTime: startTime,
+                    endTime: endTime,
+                    allDay: false
+                });
+            }
+        }
+        return events;
+    }
 });

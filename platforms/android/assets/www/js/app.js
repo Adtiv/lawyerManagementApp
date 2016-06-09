@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','ui.rCalendar'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -49,22 +49,49 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
+    .state('tab.task-detail', {
+      url: '/tasks/:taskId',
+      views: {
+        'tab-tasks': {
+          templateUrl: 'templates/task-detail.html',
+          controller: 'TaskDetailCtrl'
+        }
+      }
+    })
+  .state('tab.newTask', {
+    url: "/newTask",
+    views: {
+      'tab-tasks': {
+        templateUrl: "templates/newTask.html",
+        controller: 'TasksCtrl'
+      }
+    }
+  })
+  .state('tab.settings', {
+    url: "/settings",
+    views: {
+      'tab-tasks': {
+        templateUrl: "templates/settings.html",
+        //controller: 'SettingsCtrl'
+      }
+    }
+  })
 
   .state('tab.clients', {
       url: '/clients',
       views: {
         'tab-clients': {
           templateUrl: 'templates/tab-clients.html',
-          controller: 'ChatsCtrl'
+          controller: 'ClientsCtrl'
         }
       }
     })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
+    .state('tab.client-detail', {
+      url: '/clients/:clientId',
       views: {
         'tab-clients': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
+          templateUrl: 'templates/client-detail.html',
+          controller: 'ClientDetailCtrl'
         }
       }
     })

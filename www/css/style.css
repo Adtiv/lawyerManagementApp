@@ -3,13 +3,13 @@
   left: 0;
 }
 .makeRed .item-content{
-	background-color: red !important;
+	background-color: rgba(255,0,0,.9) !important;
 }
 .makeYellow .item-content{
-	background-color: yellow !important;
+	background-color: rgba(255,255,0,.9) !important;
 }
 .makeGreen .item-content{
-	background-color: green !important;
+	background-color: rgba(0,255,0,.9) !important;
 }
 .bar.bar-light{
   background-color: rgba(220,220,220,.75) !important; /* or transparent, or background:none */

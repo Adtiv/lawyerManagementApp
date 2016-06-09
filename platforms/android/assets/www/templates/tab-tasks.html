@@ -1,25 +1,44 @@
 <ion-view view-title="Tasks">
+  <ion-nav-buttons side="right">
+      <a class="button button-clear" href="#/tab/newTask">
+        <i class ="icon ion-android-add"></i>
+      </a>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="left">
+      <a class="button button-clear" href="#/tab/settings">
+        <i class ="icon ion-gear-b"></i>
+      </a>
+  </ion-nav-buttons>
   <ion-content class="padding">
       <div class="list">
           <label class="item item-input item-select">
               <div class="input-label">
                   &nbsp;
               </div>
-              <select>
+              <select ng-model="rules" ng-change="filterRules(rules)">
                   <option selected>All Tasks</option>
-                  <option id="discoveryResponse">Discovery Responses</option>
-                  <option id="pleadingResponse">Pleading Responses</option>
-                  <option id="motionResponse">Motion Responses</option>
-                  <option id="mediationStatement">Mediation Statements</option>
+                  <option value="DiscoveryResponse">Discovery Responses</option>
+                  <option value="PleadingResponse">Pleading Responses</option>
+                  <option value="MotionResponse">Motion Responses</option>
+                  <option value="MediationStatement">Mediation Statements</option>
               </select>
           </label>
       </div>
-      <ion-list>
-	      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="task in tasks" type="item-text-wrap">
-	        <h2>{{task.title}}</h2><h4>{{task.timeLeft}}</h4>
+      <ion-list id="unfilteredList">
+	      <ion-item class="item item-remove-animate item-avatar item-icon-right" ng-repeat="task in tasks | orderBy:'timeLeft'| filter: {rule: ruleSelect}" type="item-text-wrap" ng-class="{makeRed: colorTasks(task)==='red',makeYellow: colorTasks(task)==='yellow',makeGreen: colorTasks(task)==='green'}" href="#/tab/tasks/{{task.id}}">
+	        <h2>{{task.title}}</h2><h4 style="font-weight:bold">{{task.timeLeft}} Days</h4>
 	        <i class="icon ion-chevron-right icon-accessory"></i>
   	      <ion-option-button class="button-assertive" ng-click="remove(task)">
   	          Delete
+          </ion-option-button>
+      </ion-item>
+    </ion-list>
+    <ion-list id="filteredList" style="visibility:hidden">
+        <ion-item class="item item-remove-animate item-avatar item-icon-right" ng-repeat="task in tasks | orderBy:'timeLeft'| filter: {rule: ruleSelect}" type="item-text-wrap" ng-class="{makeRed: colorTasks(task)==='red',makeYellow: colorTasks(task)==='yellow',makeGreen: colorTasks(task)==='green'}"href="#/tab/tasks/{{task.id}}">
+          <h2>{{task.title}}</h2><h4 style="font-weight:bold">{{task.timeLeft}} Days</h4>
+          <i class="icon ion-chevron-right icon-accessory"></i>
+          <ion-option-button class="button-assertive" ng-click="remove(task)">
+              Delete
           </ion-option-button>
       </ion-item>
     </ion-list>

@@ -1,6 +1,6 @@
-angular.module('starter.controllers', ['ui.rCalendar'])
+angular.module('starter.controllers', ['ui.rCalendar','ionic-datepicker'])
 
-.controller('TasksCtrl', function($scope, $state, Tasks) {
+.controller('TasksCtrl', function($scope, $state, Tasks, ionicDatePicker) {
   $scope.tasks = Tasks.all();
 
   $scope.rules = "All Tasks";
@@ -52,19 +52,65 @@ angular.module('starter.controllers', ['ui.rCalendar'])
   }
   $scope.addTask = function(){
     var taskTitle = document.getElementById('taskTitle').value;
+    var rule = findTaskRule(taskTitle);
+    taskTitle = filterTaskTitle(taskTitle);
     var dueDate = parseInt(document.getElementById('dueDate').value);
     var taskDescription = document.getElementById('taskDescription').value;
     var size = $scope.tasks.length;
-    $scope.tasks.push({id:size,title:taskTitle,timeLeft:dueDate,rule:'MediationStatement'});
+    $scope.tasks.push({id:size,title:taskTitle,timeLeft:dueDate,rule:rule});
     $state.transitionTo('tab.tasks', $state.$current.params, {reload: true});
     //$state.go('tab.tasks');
+  }
+  var ipObj1 = {
+    callback: function (val) {  //Mandatory
+      console.log('Return value from the datepicker popup is : ' + val, new Date(val));
+      var date = new Date(val);
+      document.getElementById('dueDate').type='text';
+      document.getElementById('dueDate').value= (parseInt(date.getUTCMonth())+1).toString()+'-'+date.getUTCDate()+'-'+date.getUTCFullYear();
+      
+      //console.log(val);
+    },
+    inputDate: new Date(),      //Optional
+    mondayFirst: true,          //Optional
+    disableWeekdays: [0],       //Optional
+    closeOnSelect: false,       //Optional
+    templateType: 'popup'       //Optional
+  };
+
+  $scope.openDatePicker = function(){
+    document.getElementById('dueDate').type='hidden';
+    ionicDatePicker.openDatePicker(ipObj1);
+  };
+  var filterTaskTitle = function(taskTitle){
+    for(var i=0;i<taskTitle.length;i++){
+      if(taskTitle.charAt(i)==':'){
+        return taskTitle.substring(i+1, taskTitle.length);
+      }
+    }
+    return taskTitle;
+  }
+  var findTaskRule = function(taskTitle){
+    var rule = taskTitle.substring(0,2).toUpperCase();
+    if(rule=="DR"){
+      return 'DiscoveryResponse';
+    }
+    else if(rule=="PR"){
+      return 'PleadingResponse';
+
+    }
+    else if(rule=="MR"){
+      return 'MotionResponse';
+    }
+    else if(rule=="MS"){
+      return 'MediationStatement';
+    }
+    else{
+      return 'Other';
+    }
   }
   $scope.remove = function(task) {
     Tasks.remove(task);
   }
-
-})
-.controller('NewTaskCtrl', function($scope) {
 
 })
 .controller('ClientsCtrl', function($scope, Clients) {

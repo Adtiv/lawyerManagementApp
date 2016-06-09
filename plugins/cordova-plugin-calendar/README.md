@@ -262,9 +262,14 @@ Creating an event for 3 full days
 ```
 
 ### Android 6 (M) Permissions
-On Android 6 you need to request permission to use the Calenda at runtime when targeting API level 23+.
-Even if the uses-permission tags the Calendar are present in `AndroidManifest.xml`.
+On Android 6 you need to request permission to use the Calendar at runtime when targeting API level 23+.
+Even if the `uses-permission` tags for the Calendar are present in `AndroidManifest.xml`.
 
+Since plugin version 4.5.0 we transparently handle this for you in a just-in-time manner.
+So if you call `createEvent` we will pop up the permission dialog. After the user granted access
+to his calendar the event will be created.
+
+You can also manually manage and check permissions if that's your thing.
 Note that the hasPermission functions will return true when:
 
 - You're running this on iOS, or
@@ -273,6 +278,7 @@ Note that the hasPermission functions will return true when:
 - You've already granted permission.
 
 ```js
+  // again, this is no longer needed with plugin version 4.5.0 and up
   function hasReadWritePermission() {
     window.plugins.calendar.hasReadWritePermission(
       function(result) {
